@@ -12,7 +12,7 @@ center = [320,240]
 centership = [288,226]
 pygame.display.set_caption("Raspithon Game")
 
-font = pygame.font.Font(None, 32)
+font = pygame.font.Font(None, 50)
 
 fps = 60
 clock = pygame.time.Clock()
@@ -31,13 +31,15 @@ running = True
 playtime = 0.0
 bgmusic = pygame.mixer.music.load("backgroundmusic.mp3")
 pygame.mixer.init()
-#pygame.mixer.music.play(-1) As requested until we finish
+pygame.mixer.music.play(-1)
 
 
 #Display the ship
 player = player_info.Player(screen)
-alien = player_info.Alien(screen, clock)
 allSprites = pygame.sprite.Group(player)
+#Display Life
+lifeimg = "life.png"
+lifeimage = pygame.image.load(lifeimg).convert_alpha()
 
 while running:
     screen.blit(background,(0,0))
@@ -47,13 +49,11 @@ while running:
     text = font.render("Frame rate: %.2f Playtime: %.2fs" % (clock.get_fps(),playtime), 1, white)
     background.fill(black)
     background.blit(text, (0,0))
-    #pygame.draw.circle(background, (0,0,255), (320,240),25) 
-    background.blit(player.image, player.rect)
-    background.blit(alien.image, alien.rect)
-    print(player.rect)
-  
-    alien.add()
-    alien.update(1)
+    background.blit(lifeimage, center)
+    allSprites.clear(screen,background)
+    allSprites.update()
+    allSprites.draw(screen)
+
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -62,14 +62,10 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 
-    
-    #On keypress
-    
-    keystate = pygame.key.get_pressed()
-    if keystate[pygame.K_RIGHT]:      
-        player.turnRight()
-    if keystate[pygame.K_LEFT]:
-        player.turnLeft()
+    keysdown = pygame.key.get_pressed()
+    if keysdown[pygame.K_RIGHT]:   
+        shipangle +=1
+
     
 
     
