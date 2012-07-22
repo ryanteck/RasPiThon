@@ -1,4 +1,5 @@
 To Do
 Make it so bullets spawn
 Make aliens spawn from corners
-Make lifes
+Implement damage to life.
+
