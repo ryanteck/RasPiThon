@@ -17,7 +17,7 @@ def updateAndDrawDudes(surface):
 def reset():
     print("resetting")
     for i in range(len(dudes)):
-        
+        dudes.pop()
         MoveableDude.tickclock = 0
 
 class MoveableDude(pygame.sprite.Sprite):
