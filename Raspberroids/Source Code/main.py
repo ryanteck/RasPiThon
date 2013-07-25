@@ -5,7 +5,7 @@ from pygame.locals import *
 from math import sqrt
 from random import randint
 
-randnum = randint(2,3) # 1 to 4, code is inclusive
+randnum = randint(1,5) # 1 to 4, code is inclusive
 
 pygame.init()
 
@@ -20,6 +20,9 @@ if randnum == 3:    # Divinite added randomised titles.
 
 if randnum == 4:    # Divinite added randomised titles.
     rand = "Cheeseburgers are tasty."
+
+if randnum == 5:
+    rand = "Now with more FPS!"
 
 def startGame(screen):
     
@@ -37,7 +40,7 @@ def startGame(screen):
     
     font = pygame.font.Font(None, 32)
     
-    fps = 100
+    fps = 500
     clock = pygame.time.Clock()
     
     black = [0,0,0]
@@ -76,12 +79,14 @@ def startGame(screen):
     
     gunnew = gun.Gun(screen)
     pygame.display.init()
-    
+    screen.blit(background,(0,0))
+    pygame.display.flip()    
     while running:
         
         screen.blit(background,(0,0)) # comment
-        pygame.display.flip() # comment
-        milliseconds = clock.tick(fps) # comment
+        #pygame.display.flip() # comment
+        pygame.display.update([(50,0,250,50),(250,200,100,100)])
+	milliseconds = clock.tick(fps) # comment
         hp = gunnew.hp
         playtime += milliseconds / 1000.0 # comment
         text = font.render("Frame rate: %.2f Playtime: %.2fs Lives: %d" % (clock.get_fps(),playtime,hp), 1, white) # comment
