@@ -65,6 +65,7 @@ class MoveableDude(pygame.sprite.Sprite):
         #print(self.angle)
         self.angle += 3
         # Home towards the target if we are more than 10 pixels away
+        
         if (math.fabs(dx) > 10 or math.fabs(dy) > 10):
             magnitude = math.sqrt((dx*dx) + (dy*dy))
             
@@ -74,6 +75,7 @@ class MoveableDude(pygame.sprite.Sprite):
             self.position = self.position.move(dx_norm * self.movement_speed, dy_norm * self.movement_speed)
         else:
             self.setTarget(random.randint(0, 640), random.randint(0, 480))
+        
         
     def setTarget(self, x, y):
         self.target = pygame.Rect(x, y, 0, 0)

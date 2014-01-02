@@ -1,14 +1,15 @@
 #Alpha Code
 
 import pygame, random, time, player_info, moveable_dude, gun, math, pygame.mixer, effects
+
 from pygame.locals import *
+
 from math import sqrt
+
 from random import randint
 
 randnum = randint(1,5) # 1 to 4, code is inclusive
-
-pygame.init()
-
+#Select a Title
 if randnum == 1:    # Divinite added randomised titles.
     rand = "Oh no, not the Aliens!"
 
@@ -24,8 +25,10 @@ if randnum == 4:    # Divinite added randomised titles.
 if randnum == 5:
     rand = "Now with more FPS!"
 
+
+#Define the game
 def startGame(screen):
-    
+    #Reset all dudes
     moveable_dude.reset()
 
     screensize = screen.get_size()
@@ -40,7 +43,7 @@ def startGame(screen):
     
     font = pygame.font.Font(None, 32)
     
-    fps = 500
+    fps = 60
     clock = pygame.time.Clock()
     
     black = [0,0,0]
@@ -82,13 +85,13 @@ def startGame(screen):
     screen.blit(background,(0,0))
     pygame.display.flip()    
     while running:
-        
+        print("blit screen")
         screen.blit(background,(0,0)) # comment
-        #pygame.display.flip() # comment
-        pygame.display.update([(50,0,250,50),(250,200,100,100)])
+        print("flipscreen")
+        pygame.display.flip() # comment
 	milliseconds = clock.tick(fps) # comment
         hp = gunnew.hp
-        playtime += milliseconds / 1000.0 # comment
+        playtime =0 # comment
         text = font.render("Frame rate: %.2f Playtime: %.2fs Lives: %d" % (clock.get_fps(),playtime,hp), 1, white) # comment
         scoretext = font.render("Score: %d" % (score), 1, white)
         background.blit(backgroundimg,(0,0))
@@ -185,3 +188,4 @@ def startGame(screen):
             
     
         
+#startGame(surface)
