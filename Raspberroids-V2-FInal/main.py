@@ -35,6 +35,7 @@ if randnum == 5:
     rand = "Now with more FPS!"
 
 #Define the game
+@profile
 def startGame(screen):
     #Reset all dudes
     #moveable_dude.reset()
@@ -51,7 +52,7 @@ def startGame(screen):
     
     font = pygame.font.Font(None, 32)
     
-    fps = 60
+    fps = 600
     clock = pygame.time.Clock()
     
     black = [0,0,0]
@@ -59,7 +60,7 @@ def startGame(screen):
     
     background = pygame.Surface(screensize)
     background = background.convert()
-    backgroundimg = pygame.image.load("bg.png")
+    backgroundimg = pygame.image.load("bgCompress.jpg")
     background.blit(backgroundimg,(0,0))
     
     logo = "rptlogo.png"
@@ -94,6 +95,7 @@ def startGame(screen):
     pygame.display.update()   
     fpsLast = 0.00 
     counter = 0
+    
     while running:
 		if(clock.get_fps()>fpsLast):
 			print clock.get_fps()
@@ -101,7 +103,7 @@ def startGame(screen):
 		screen.blit(background,(0,0)) # comment
 		#pygame.display.update()   
 
-		milliseconds = clock.tick(fps) # comment
+		milliseconds = clock.tick() # comment
 		hp = gunnew.hp
 		playtime =0 # comment
 		text = font.render("Frame rate: %.2f Playtime: %.2fs Lives: %d" % (clock.get_fps(),playtime,hp), 1, white) # comment

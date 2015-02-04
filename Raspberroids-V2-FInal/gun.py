@@ -22,7 +22,7 @@ class Bullet(pygame.sprite.Sprite):
         surface.blit(self.laser,(self.position.x,self.position.y))
         rect = [self.position.x-2,self.position.y-2,self.position.x+2,self.position.y+2]
         pygame.display.update(rect)
-        print rect
+        #print rect
        
 class Gun(pygame.sprite.Sprite):
     def __init__(self,screen):
