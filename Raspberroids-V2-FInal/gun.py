@@ -20,6 +20,9 @@ class Bullet(pygame.sprite.Sprite):
         self.laser = pygame.image.load("laser.png").convert_alpha()
         self.lasercp = self.laser.copy
         surface.blit(self.laser,(self.position.x,self.position.y))
+        rect = [self.position.x-2,self.position.y-2,self.position.x+2,self.position.y+2]
+        pygame.display.update(rect)
+        print rect
        
 class Gun(pygame.sprite.Sprite):
     def __init__(self,screen):
@@ -72,6 +75,9 @@ class Gun(pygame.sprite.Sprite):
             self.bullets.remove(removeList[i])
                 
         surface.blit(self.image, self.rect)
+        rect = [self.rect[0]-1,self.rect[1]-1,self.rect[0]+1,self.rect[1]+1]
+        pygame.display.update(rect)
+        #print rect
         
     def fire(self):
         if self.bullettime == 5:

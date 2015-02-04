@@ -52,11 +52,14 @@ class MoveableDude(pygame.sprite.Sprite):
                 dudes.append(MoveableDude())
 
     def updateAndDrawDudes(self,surface):
+        print "dudeUpdateAndDraw"
         for i in range(len(dudes)):
             dudes[i].update()
+            print "dudeUpdate"
             
         for i in range(len(dudes)):
             dudes[i].draw(surface)
+            print "dude"
             
     def update(self):
         dx = self.target.x - self.position.x
@@ -82,6 +85,9 @@ class MoveableDude(pygame.sprite.Sprite):
     
     def draw(self, surface):
         surface.blit(self.image, self.position)
+        rect = [self.position[0]-2,self.position[1]-2,self.position[0]+2,self.position[1]+2]
+        pygame.display.update(rect)
+        #print rect
         
     def timer(self):
         self.tickclock += 1

@@ -1,11 +1,10 @@
 #Raspberroids V2,
 #Re Written to remove some weight from it and to make it run fast on the Pi
 
-import pygame, random, time, player_info, moveable_dude, gun, math, pygame.mixer, effects
+import pygame, random, time, moveable_dude, gun, math, pygame.mixer, effects
 from moveable_dude import *
 
 from pygame.locals import *
-import pygame, random, time, player_info, moveable_dude, gun
 
 if not pygame.display.get_init():
     pygame.display.init()
@@ -52,7 +51,7 @@ def startGame(screen):
     
     font = pygame.font.Font(None, 32)
     
-    fps = 600
+    fps = 60
     clock = pygame.time.Clock()
     
     black = [0,0,0]
@@ -94,21 +93,24 @@ def startGame(screen):
     screen.blit(background,(0,0))
     pygame.display.update()   
     fpsLast = 0.00 
+    counter = 0
     while running:
 		if(clock.get_fps()>fpsLast):
 			print clock.get_fps()
 			fpsLast = clock.get_fps()
 		screen.blit(background,(0,0)) # comment
-		pygame.display.update([0,0,10,10])   
+		#pygame.display.update()   
 
 		milliseconds = clock.tick(fps) # comment
 		hp = gunnew.hp
 		playtime =0 # comment
 		text = font.render("Frame rate: %.2f Playtime: %.2fs Lives: %d" % (clock.get_fps(),playtime,hp), 1, white) # comment
+		
 		scoretext = font.render("Score: %d" % (score), 1, white)
 		background.blit(backgroundimg,(0,0))
 		background.blit(text, (10,15)) # comment
 		background.blit(scoretext, (240,450))
+		pygame.display.update([10,15,450,25]) 
 		moveable_dude.updateAndDrawDudes(background)
         
 		effects.update()
@@ -191,7 +193,9 @@ def startGame(screen):
 			gunnew.fire()
 		if keystate[pygame.K_q]:
 			running = False
-            
+		
+		
+        
         
             
             
