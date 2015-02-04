@@ -35,7 +35,6 @@ if randnum == 4:    # Divinite added randomised titles.
 if randnum == 5:
     rand = "Now with more FPS!"
 
-
 #Define the game
 def startGame(screen):
     #Reset all dudes
@@ -53,7 +52,7 @@ def startGame(screen):
     
     font = pygame.font.Font(None, 32)
     
-    fps = 60
+    fps = 600
     clock = pygame.time.Clock()
     
     black = [0,0,0]
@@ -93,105 +92,105 @@ def startGame(screen):
     gunnew = gun.Gun(screen)
     pygame.display.init()
     screen.blit(background,(0,0))
-    pygame.display.flip()    
+    pygame.display.update([0,0,10,10])   
+    fpsLast = 0.00 
     while running:
-        print("blit screen")
-        screen.blit(background,(0,0)) # comment
-        print("flipscreen")
-        pygame.display.flip() # comment
-	milliseconds = clock.tick(fps) # comment
-        hp = gunnew.hp
-        playtime =0 # comment
-        text = font.render("Frame rate: %.2f Playtime: %.2fs Lives: %d" % (clock.get_fps(),playtime,hp), 1, white) # comment
-        scoretext = font.render("Score: %d" % (score), 1, white)
-        background.blit(backgroundimg,(0,0))
-        background.blit(text, (10,15)) # comment
-        background.blit(scoretext, (240,450))
-        #pygame.draw.circle(background, (0,0,255), (320,240),25) 
-        moveable_dude.updateAndDrawDudes(background)
+		if(clock.get_fps()>fpsLast):
+			print clock.get_fps()
+			fpsLast = clock.get_fps()
+		screen.blit(background,(0,0)) # comment
+		pygame.display.update([0,0,10,10])   
+
+		milliseconds = clock.tick(fps) # comment
+		hp = gunnew.hp
+		playtime =0 # comment
+		text = font.render("Frame rate: %.2f Playtime: %.2fs Lives: %d" % (clock.get_fps(),playtime,hp), 1, white) # comment
+		scoretext = font.render("Score: %d" % (score), 1, white)
+		background.blit(backgroundimg,(0,0))
+		background.blit(text, (10,15)) # comment
+		background.blit(scoretext, (240,450))
+		moveable_dude.updateAndDrawDudes(background)
         
-        effects.update()
-        effects.draw(background)
+		effects.update()
+		effects.draw(background)
         
-        move.timer()
+		move.timer()
         
-        gunnew.update(float(milliseconds) / 1000)
-        gunnew.draw(background)
+		gunnew.update(float(milliseconds) / 1000)
+		gunnew.draw(background)
         
-        toremove = []
+		toremove = []
         
-        if len(moveable_dude.dudes) > 0:
-            for y in range(len(moveable_dude.dudes)):
-                remove = False
-                if len(gunnew.bullets) > 0:
-                    for i in range(len(gunnew.bullets)):
-                        if gunnew.bullets[i].alive:
-                            posx = gunnew.bullets[i].position.left
-                            posy = gunnew.bullets[i].position.top
-                            pozx = moveable_dude.dudes[y-1].position.left
-                            pozy = moveable_dude.dudes[y-1].position.top
-                            difx = pozx - posx
-                            dify = pozy - posy
-                            magn = sqrt((difx*difx) + (dify*dify))
-                            if (magn < 15):
-                                pygame.init()
-                                shot.play()
-                                #print(moveable_dude.dudes)
-                                #print(y)
-                                remove = True
-                                effects.Explosion(posx, posy)
-                                score = score + 50
+		if len(moveable_dude.dudes) > 0:
+			for y in range(len(moveable_dude.dudes)):
+				remove = False
+				if len(gunnew.bullets) > 0:
+					for i in range(len(gunnew.bullets)):
+						if gunnew.bullets[i].alive:
+							posx = gunnew.bullets[i].position.left
+							posy = gunnew.bullets[i].position.top
+							pozx = moveable_dude.dudes[y-1].position.left
+							pozy = moveable_dude.dudes[y-1].position.top
+							difx = pozx - posx
+							dify = pozy - posy
+							magn = sqrt((difx*difx) + (dify*dify))
+							if (magn < 15):
+								pygame.init()
+								shot.play()
+								remove = True
+								effects.Explosion(posx, posy)
+								score = score + 50
                         #else:
                         
                             #Blah
-                if gunnew.hp > 0:
-                        posx = gunnew.position.left
-                        posy = gunnew.position.top
-                        pozx = moveable_dude.dudes[y-1].position.left
-                        pozy = moveable_dude.dudes[y-1].position.top
-                        difx = pozx - posx
-                        dify = pozy - posy
-                        magn = sqrt((difx*difx) + (dify*dify))
-                        if (magn < 15):
-                            gunnew.hp -= 1
-                            remove = True
-                            effects.Explosion(pozx, pozy)
-                            explode.play()
-                else:
-                    if dead != 1:
-                        gameover.play()
-                        dead = 1
-                        running = False
-                        pygame.time.wait(2000)
+				if gunnew.hp > 0:
+						posx = gunnew.position.left
+						posy = gunnew.position.top
+						pozx = moveable_dude.dudes[y-1].position.left
+						pozy = moveable_dude.dudes[y-1].position.top
+						difx = pozx - posx
+						dify = pozy - posy
+						magn = sqrt((difx*difx) + (dify*dify))
+						if (magn < 15):
+							gunnew.hp -= 1
+							remove = True
+							effects.Explosion(pozx, pozy)
+							explode.play()
+				else:
+					if dead != 1:
+						gameover.play()
+						dead = 1
+						running = False
+						pygame.time.wait(2000)
                 
-                if remove:
-                    toremove.append(y-1)
+				if remove:
+					toremove.append(y-1)
                 
-        for i in range(len(toremove)):
-            moveable_dude.dudes.pop(toremove[i])
+		for i in range(len(toremove)):
+			moveable_dude.dudes.pop(toremove[i])
         
         
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				running = False
+		        
+			elif event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_ESCAPE:
+					running = False
             
                     
         #On key press        
-        keystate = pygame.key.get_pressed()
-        if keystate[pygame.K_RIGHT]:
-            gunnew.turnRight()
-        if keystate[pygame.K_LEFT]:
-            gunnew.turnLeft()
-        if keystate[pygame.K_z]:
-            gunnew.fire()
-        if keystate[pygame.K_SPACE]:
-            gunnew.fire()
-        if keystate[pygame.K_q]:
-            running = False
+		keystate = pygame.key.get_pressed()
+		if keystate[pygame.K_RIGHT]:
+			gunnew.turnRight()
+		if keystate[pygame.K_LEFT]:
+			gunnew.turnLeft()
+		if keystate[pygame.K_z]:
+			gunnew.fire()
+		if keystate[pygame.K_SPACE]:
+			gunnew.fire()
+		if keystate[pygame.K_q]:
+			running = False
             
         
             
