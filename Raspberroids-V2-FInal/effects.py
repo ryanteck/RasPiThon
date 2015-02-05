@@ -21,7 +21,7 @@ class Explosion():
     shouldRemove = False
     
     def __init__(self, x, y):
-        self.imgpaths = ["expl/expl1.png", "expl/expl2.png", "expl/expl3.png", "expl/expl4.png", "expl/expl5.png", "expl/expl6.png"]
+        self.imgpaths = ["expl/expl1.gif", "expl/expl2.gif", "expl/expl3.gif", "expl/expl4.gif", "expl/expl5.gif", "expl/expl6.gif"]
         self.imgs = []
         for i in range(len(self.imgpaths)):
             self.imgs.append(pygame.image.load(self.imgpaths[i]).convert_alpha())

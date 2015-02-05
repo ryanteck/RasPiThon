@@ -17,18 +17,19 @@ class Bullet(pygame.sprite.Sprite):
         
     def draw(self, surface):
         # pygame.draw.circle(surface, pygame.Color("red"), [self.position.x, self.position.y], 3)
-        self.laser = pygame.image.load("laser.png").convert_alpha()
+        self.laser = pygame.image.load("laser.gif").convert_alpha()
         self.lasercp = self.laser.copy
         surface.blit(self.laser,(self.position.x,self.position.y))
         rect = [self.position.x-2,self.position.y-2,self.position.x+2,self.position.y+2]
-        pygame.display.update(rect)
+        #pygame.display.update(rect)
         #print rect
-       
+  
 class Gun(pygame.sprite.Sprite):
+    @profile
     def __init__(self,screen):
         global rect;
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("ship.png").convert_alpha()
+        self.image = pygame.image.load("ship.gif").convert_alpha()
         self.imagecp = self.image.copy()
         self.rect = self.image.get_rect(center=(320,240))
         self.startx = 320
@@ -41,25 +42,25 @@ class Gun(pygame.sprite.Sprite):
         self.bulletSpeed = 500
         self.moveSpeed = 250.0
         self.bullettime = 0
-        
+    @profile
     def turnRight(self):
         self.angle -= 6
         self.image = pygame.transform.rotate(self.imagecp, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
         #print(self.angle)
-        
+    @profile
     def turnLeft(self):
         self.angle += 6
         self.image = pygame.transform.rotate(self.imagecp, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
         #print(self.angle)
 
-    
+    @profile
     def update(self, dt):
     
         for i in range(len(self.bullets)):
             self.bullets[i].update(dt)
-    
+    @profile
     def draw(self, surface):
         
         
@@ -76,9 +77,9 @@ class Gun(pygame.sprite.Sprite):
                 
         surface.blit(self.image, self.rect)
         rect = [self.rect[0]-1,self.rect[1]-1,self.rect[0]+1,self.rect[1]+1]
-        pygame.display.update(rect)
+        #pygame.display.update(rect)
         #print rect
-        
+    @profile    
     def fire(self):
         if self.bullettime == 5:
             dx =  -math.cos(math.radians(self.angle)) * self.bulletSpeed

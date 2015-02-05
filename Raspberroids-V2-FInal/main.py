@@ -35,7 +35,7 @@ if randnum == 5:
     rand = "Now with more FPS!"
 
 #Define the game
-@profile
+#@profile
 def startGame(screen):
     #Reset all dudes
     #moveable_dude.reset()
@@ -47,7 +47,7 @@ def startGame(screen):
     center = [320,240]
     centership = [288,226]
     pygame.display.set_caption("Raspberroids | A collaborative Project | " + rand) # Divinite added randomised titles.
-    lifeimg = pygame.image.load("life.png").convert_alpha()
+    lifeimg = pygame.image.load("life.gif").convert_alpha()
     pygame.display.set_icon(lifeimg)
     
     font = pygame.font.Font(None, 32)
@@ -60,7 +60,7 @@ def startGame(screen):
     
     background = pygame.Surface(screensize)
     background = background.convert()
-    backgroundimg = pygame.image.load("bgCompress.jpg")
+    backgroundimg = pygame.image.load("bgCompress.gif")
     background.blit(backgroundimg,(0,0))
     
     logo = "rptlogo.png"
@@ -101,7 +101,7 @@ def startGame(screen):
 			print clock.get_fps()
 			fpsLast = clock.get_fps()
 		screen.blit(background,(0,0)) # comment
-		#pygame.display.update()   
+		pygame.display.update()   
 
 		milliseconds = clock.tick() # comment
 		hp = gunnew.hp
@@ -112,7 +112,7 @@ def startGame(screen):
 		background.blit(backgroundimg,(0,0))
 		background.blit(text, (10,15)) # comment
 		background.blit(scoretext, (240,450))
-		pygame.display.update([10,15,450,25]) 
+		#pygame.display.update([10,15,450,25]) 
 		moveable_dude.updateAndDrawDudes(background)
         
 		effects.update()
